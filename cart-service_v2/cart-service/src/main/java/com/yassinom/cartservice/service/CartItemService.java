@@ -15,10 +15,10 @@ import java.util.Optional;
 @RequiredArgsConstructor
 public class CartItemService {
 
-    @Autowired
+
     private final CartItemRepository cartItemRepository;
     @Autowired
-    private final CartService cartService;
+    public CartService cartService;
 
     public void deleteCartItemById(Integer cartItemId) {
         Optional<CartItem> optionalCartItem = cartItemRepository.findById(cartItemId);

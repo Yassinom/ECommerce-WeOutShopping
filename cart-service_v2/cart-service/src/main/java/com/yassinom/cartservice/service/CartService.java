@@ -8,6 +8,7 @@ import com.yassinom.cartservice.repository.CartItemRepository;
 import com.yassinom.cartservice.repository.CartRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Component;
 import org.springframework.stereotype.Service;
 import org.springframework.web.reactive.function.client.WebClient;
 
@@ -16,6 +17,7 @@ import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
 
+@Component
 @Service
 @RequiredArgsConstructor
 public class CartService {
@@ -40,7 +42,7 @@ public class CartService {
             cart.getItems().add(cartItem);                  // Add the CartItem to the Cart
 
             updateCartTotalPrice(cart.getCartId());             // Update the total price of the cart
-            cartItemRepository.save(cartItem);                          // Save the updated cart back to the repository
+//            cartItemRepository.save(cartItem);                          // Save the updated cart back to the repository
 
         } else { throw new RuntimeException("Cart not found with user id: " + product.getUserId()); }
     }
@@ -97,7 +99,9 @@ public class CartService {
                     System.out.println("total price for cart item : " + cartItem.getCartItemId() + " est : " + totalPrice);
 //                }
             }
+            System.out.println("now setting up total price : " + totalPrice + ", of cart " + cart.getUserId() + ", with Id : "+cart.getCartId());
             cart.setTotalPrice(totalPrice);
+            cartRepository.save(cart);
         } else { throw new RuntimeException("Cart not found with id: " + cartId); }
     }
 
