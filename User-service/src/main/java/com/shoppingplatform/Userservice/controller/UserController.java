@@ -1,5 +1,6 @@
 package com.shoppingplatform.Userservice.controller;
 
+import com.shoppingplatform.Userservice.dto.AuthVerificationDTO;
 import com.shoppingplatform.Userservice.model.UserModel;
 import com.shoppingplatform.Userservice.model.UserRequestDTO;
 import com.shoppingplatform.Userservice.service.UserService;
@@ -44,6 +45,11 @@ public class UserController {
     @DeleteMapping("/deleteUser/{id}")
     public void deleteUser(@PathVariable String id){
         userService.deleteUser(id);
+    }
+
+    @PostMapping("/login")
+    public String authUser(@RequestBody AuthVerificationDTO userDTO){
+        return userService.authUser(userDTO);
     }
 
     @GetMapping("/getUserWithUsername/{username}")
